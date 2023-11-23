@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import { useState } from 'react'
 import { useTheme } from '@mui/material/styles'
+import { formatFileSize } from './fileSize'
 
 function App() {
 	const [highlight, setHighlight] = useState(false)
@@ -73,7 +74,7 @@ function App() {
 									{file.name}
 								</Typography>
 								<Typography variant='subtitle1'>
-									{(file.size / 1024).toFixed(2)} KB
+									{formatFileSize(file.size)}
 								</Typography>
 							</Stack>
 						) : (
