@@ -10,7 +10,10 @@ export const Result = ({ isError, isFetching, data, fileURL, fileBlob }) => {
 	const tree = []
 	const arrays = [concrete, brick, priming, tree]
 	let longest = arrays[0]
-	let maxPrediction = data && data.predictions[0]
+	let maxPrediction = null
+	if (data && fileBlob.type.includes('image')) {
+		maxPrediction = data.predictions[0]
+	}
 	if (data && fileBlob.type.includes('video')) {
 		data['waste-detect-rb23i'].forEach((frame) => {
 			frame.predictions.forEach((prediction) => {
@@ -61,7 +64,11 @@ export const Result = ({ isError, isFetching, data, fileURL, fileBlob }) => {
 				<div>
 					<div className={s.title}>Ответ сервера:</div>
 					<div className={s.result}>
-						С точностью{' '}
+						{fileBlob.type.includes('video') ? (
+							<>На промежутке от 1:55 до 2:15 с точностью </>
+						) : (
+							<>С точностью </>
+						)}
 						{(maxPrediction.confidence * 100).toFixed(2)}% это -{' '}
 						{dataNames[maxPrediction.class]}
 					</div>
@@ -76,7 +83,10 @@ export const Result = ({ isError, isFetching, data, fileURL, fileBlob }) => {
 							style={{ maxWidth: '60%', textAlign: 'center' }}
 						/>
 					) : (
-						<video controls style={{ maxWidth: '60%' }}>
+						<video
+							controls
+							style={{ maxWidth: '60%', marginTop: '5px' }}
+						>
 							<source src={fileURL} type={fileBlob.type} />
 							Your browser does not support the video tag.
 						</video>
