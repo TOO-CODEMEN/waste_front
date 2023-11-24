@@ -3,8 +3,11 @@ import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import { formatFileSize } from '../utils/fileSize'
+import { useDispatch } from 'react-redux'
+import { filesApi } from '../api/file'
 
 export const UploadInput = ({ fileBlob, setFile }) => {
+	const dispatch = useDispatch()
 	const handleFileChange = (event) => {
 		const selectedFile = event.target.files[0]
 		if (selectedFile) {
@@ -12,6 +15,7 @@ export const UploadInput = ({ fileBlob, setFile }) => {
 				blob: selectedFile,
 				URL: URL.createObjectURL(selectedFile),
 			})
+			dispatch(filesApi.util.resetApiState())
 		}
 	}
 
