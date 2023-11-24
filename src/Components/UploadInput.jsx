@@ -33,7 +33,7 @@ export const UploadInput = ({ fileBlob, setFile }) => {
 				'Выберите или перетащите файл для загрузки'
 			)}
 			<input
-				accept='*'
+				accept='image/png, image/jpeg, video/*'
 				hidden
 				id='file-upload'
 				type='file'
