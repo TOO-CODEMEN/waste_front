@@ -28,18 +28,18 @@ jobs:
               uses: appleboy/scp-action@master
               with:
                   host: '89.232.170.76'
-                  username: 'alexey'
+                  username: 'user1'
                   key: '${{ secrets.NGINX_SERVER_KEY }}'
                   rm: 'true'
                   port: '22'
                   source: 'dist/'
-                  target: '/home/alexey/build'
+                  target: '/home/user1/build'
             - name: Move Folder
               uses: appleboy/ssh-action@master
               with:
                   host: '89.232.170.76'
-                  username: 'alexey'
+                  username: 'user1'
                   key: '${{ secrets.NGINX_SERVER_KEY }}'
                   port: '22'
                   script: |
-                      sudo rm -rf /var/www/dist && sudo mv build/dist /var/www/dist && sudo systemctl restart nginx
+                      sudo rm -rf /var/www/html && sudo mv build/dist /var/www/html && sudo systemctl restart nginx
