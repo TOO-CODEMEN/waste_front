@@ -10,8 +10,8 @@ export const Result = ({ isError, isFetching, data, fileURL, fileBlob }) => {
 	const tree = []
 	const arrays = [concrete, brick, priming, tree]
 	let longest = arrays[0]
+	let maxPrediction = data && data.predictions[0]
 	if (data && fileBlob.type.includes('video')) {
-		console.log(data)
 		data['waste-detect-rb23i'].forEach((frame) => {
 			frame.predictions.forEach((prediction) => {
 				switch (prediction.class) {
@@ -37,12 +37,13 @@ export const Result = ({ isError, isFetching, data, fileURL, fileBlob }) => {
 				longest = arrays[i]
 			}
 		}
+		maxPrediction = longest.reduce(
+			(max, prediction) =>
+				prediction.confidence > max.confidence ? prediction : max,
+			longest[0]
+		)
 	}
-	let maxPrediction = longest.reduce(
-		(max, prediction) =>
-			prediction.confidence > max.confidence ? prediction : max,
-		longest[0]
-	)
+
 	return (
 		<div
 			style={{
@@ -76,7 +77,6 @@ export const Result = ({ isError, isFetching, data, fileURL, fileBlob }) => {
 						/>
 					) : (
 						<video controls style={{ maxWidth: '60%' }}>
-							{console.log(fileBlob.type)}
 							<source src={fileURL} type={fileBlob.type} />
 							Your browser does not support the video tag.
 						</video>
