@@ -33,6 +33,8 @@ export const DragAndDrop = ({ children, setFile }) => {
 				border: highlight && '5px dashed',
 				borderColor: 'primary.main',
 				margin: '20px',
+				display: 'flex',
+				flexDirection: 'column'
 			}}
 			minHeight='calc(100vh - 40px)'
 			display='flex'
