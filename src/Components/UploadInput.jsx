@@ -4,12 +4,14 @@ import Stack from '@mui/material/Stack'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import { formatFileSize } from '../utils/fileSize'
 
-export const UploadInput = ({ file, setFile }) => {
+export const UploadInput = ({ fileBlob, setFile }) => {
 	const handleFileChange = (event) => {
 		const selectedFile = event.target.files[0]
 		if (selectedFile) {
-			setFile(selectedFile)
-			console.log(selectedFile)
+			setFile({
+				blob: selectedFile,
+				URL: URL.createObjectURL(selectedFile),
+			})
 		}
 	}
 
@@ -20,11 +22,11 @@ export const UploadInput = ({ file, setFile }) => {
 			component='label'
 			size='large'
 		>
-			{file ? (
+			{fileBlob ? (
 				<Stack direction='row' spacing={5}>
-					<Typography variant='subtitle1'>{file.name}</Typography>
+					<Typography variant='subtitle1'>{fileBlob.name}</Typography>
 					<Typography variant='subtitle1'>
-						{formatFileSize(file.size)}
+						{formatFileSize(fileBlob.size)}
 					</Typography>
 				</Stack>
 			) : (
