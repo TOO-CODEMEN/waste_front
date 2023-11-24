@@ -21,7 +21,13 @@ function App() {
 	return (
 		<div>
 			<DragAndDrop setFile={setFile}>
-				<Stack component='form' direction='row' spacing={1}>
+				<Stack
+					component='form'
+					direction='row'
+					gap={2}
+					justifyContent='center'
+					flexWrap='wrap'
+				>
 					<UploadInput fileBlob={file.blob} setFile={setFile} />
 					<Button
 						disabled={file ? false : true}
